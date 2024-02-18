@@ -21,7 +21,6 @@ public class BookController {
     private final BookService bookService;
 
 
-
     @GetMapping("/top10")
     public ResponseEntity<List<Book>> getListByYear(@RequestParam(required = false) Long year,
                                                     @RequestParam(required = true) String column,

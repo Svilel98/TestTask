@@ -30,13 +30,14 @@ public class BookService {
     public List<Book> getTopTenBook(Long year, String column, String sorted) {
         try {
             return bookRepository.findAll(new BookSpecification(year), Sort.by(validateColumnSort(sorted), validateColumnName(column)));
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Something wrong. Please contact the developer - @vanturist0", e);
             throw e;
         }
     }
+
     private String validateColumnName(String column) {
-        return switch (column.toLowerCase().replaceAll("_","")) {
+        return switch (column.toLowerCase().replaceAll("_", "")) {
             case "book" -> "title";
             case "author" -> "authors";
             case "numpages" -> "numPages";
@@ -47,8 +48,8 @@ public class BookService {
         };
     }
 
-    private Sort.Direction validateColumnSort(String sort){
-        return switch (sort.toUpperCase()){
+    private Sort.Direction validateColumnSort(String sort) {
+        return switch (sort.toUpperCase()) {
             case "ASC" -> Sort.Direction.ASC;
             case "DESC" -> Sort.Direction.DESC;
             default -> throw new IllegalArgumentException("Unexpected value: " + sort);
